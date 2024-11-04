@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/backgroundColor"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/timerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time: 60s"
+        android:textSize="20sp"
+        android:textColor="@color/primaryTextColor"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp" />
+
+    <TextView
+        android:id="@+id/questionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Політична партія"
+        android:textSize="24sp"
+        android:textColor="@color/secondaryTextColor"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="32dp"
+        android:paddingBottom="16dp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/modeRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="16dp">
+
+        <RadioButton
+            android:id="@+id/repeatModeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="З повтореннями"
+            android:buttonTint="@color/primaryTextColor"
+            android:textColor="@color/primaryTextColor"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/noRepeatModeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Без повторень"
+            android:buttonTint="@color/primaryTextColor"
+            android:textColor="@color/primaryTextColor"
+            android:layout_marginStart="16dp" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:paddingTop="16dp">
+
+        <Button
+            android:id="@+id/trueButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Вірно"
+            android:textColor="@color/buttonTextColor"
+            android:backgroundTint="@color/buttonColor"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/falseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Невірно"
+            android:textColor="@color/buttonTextColor"
+            android:backgroundTint="@color/buttonColor"
+            android:layout_marginStart="16dp"
+            android:padding="12dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Почати гру"
+        android:textColor="@color/buttonTextColor"
+        android:backgroundTint="@color/accentColor"
+        android:layout_gravity="center_horizontal"
+        android:padding="12dp"
+        android:layout_marginTop="32dp" />
+
+    <TextView
+        android:id="@+id/scoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Вірно: 0 Невірно: 0"
+        android:textSize="20sp"
+        android:textColor="@color/primaryTextColor"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="16dp" />
+
+</LinearLayout>
