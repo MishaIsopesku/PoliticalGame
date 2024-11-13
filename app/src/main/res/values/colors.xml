@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="backgroundColor">#F0F4F8</color>
-    <color name="primaryTextColor">#3C3F41</color>
-    <color name="secondaryTextColor">#495057</color>
-    <color name="buttonColor">#4CAF50</color>
-    <color name="buttonTextColor">#FFFFFF</color>
-    <color name="accentColor">#03A9F4</color>
+    <!-- Основний фон -->
+    <color name="backgroundColor">#FFFFFF</color> 
+
+    <!-- Текстові кольори -->
+    <color name="primaryTextColor">#000000</color> 
+    <color name="secondaryTextColor">#888888</color> 
+
+    <!-- Кольори кнопок -->
+    <color name="buttonTextColor">#FFFFFF</color> 
+    <color name="buttonColor">#4CAF50</color> 
+    <color name="accentColor">#FF9800</color> 
+
+    <!-- Прогрес-бар -->
+    <color name="green">#4CAF50</color> 
+    <color name="lightGray">#D3D3D3</color> 
 </resources>
