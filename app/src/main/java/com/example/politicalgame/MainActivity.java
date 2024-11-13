@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,9 +18,10 @@ import java.util.List;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView questionTextView, timerTextView, scoreTextView;
+    private TextView questionTextView, timerTextView, scoreTextView, progressTextView;
     private Button trueButton, falseButton, startButton;
     private RadioGroup modeRadioGroup;
+    private ProgressBar progressBar;
 
     private List<String> ukrainianParties = Arrays.asList(
             "Слуга народу", "Європейська солідарність", "Батьківщина", "Опозиційна платформа – За життя",
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         falseButton = findViewById(R.id.falseButton);
         startButton = findViewById(R.id.startButton);
         modeRadioGroup = findViewById(R.id.modeRadioGroup);
+        progressBar = findViewById(R.id.progressBar);
+        progressTextView = findViewById(R.id.progressTextView);
 
         trueButton.setEnabled(false);
         falseButton.setEnabled(false);
@@ -75,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         Collections.shuffle(allParties);
         askedParties.clear();
 
-        // Вибір режиму
         int selectedMode = modeRadioGroup.getCheckedRadioButtonId();
         allowRepeats = selectedMode == R.id.repeatModeButton;
 
@@ -83,12 +85,30 @@ public class MainActivity extends AppCompatActivity {
         startButton.setEnabled(false);
         trueButton.setEnabled(true);
         falseButton.setEnabled(true);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setProgress(0);
+        progressTextView.setText("0%");
+
+        // Приховуємо або показуємо таймер залежно від режиму
+        if (allowRepeats) {
+            timerTextView.setVisibility(View.VISIBLE); // Показуємо таймер в режимі з повтореннями
+            startCountdown();
+        } else {
+            timerTextView.setVisibility(View.GONE); // Сховуємо таймер в режимі без повторень
+        }
 
         nextQuestion();
+    }
 
-        timer = new CountDownTimer(60000, 1000) {// Таймер на 1хв
+    private void startCountdown() {
+        timer = new CountDownTimer(60000, 1000) { // Таймер на 1 хвилину
             public void onTick(long millisUntilFinished) {
                 timerTextView.setText("Time: " + millisUntilFinished / 1000 + "s");
+                if (allowRepeats) {
+                    int progress = (int) ((60000 - millisUntilFinished) * 100 / 60000);
+                    progressBar.setProgress(progress);
+                    progressTextView.setText(progress + "%");
+                }
             }
 
             public void onFinish() {
@@ -99,19 +119,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void nextQuestion() {
         if (!allowRepeats && askedParties.size() >= allParties.size()) {
-            // Якщо всі питання задані (в режимі без повторень), гра завершується
             endGame();
             return;
         }
 
         String party;
         if (allowRepeats) {
-            party = allParties.get((int) (Math.random() * allParties.size())); // Випадковий вибір із повтореннями
+            party = allParties.get((int) (Math.random() * allParties.size()));
         } else {
             do {
-                party = allParties.get((int) (Math.random() * allParties.size())); // Без повторень
+                party = allParties.get((int) (Math.random() * allParties.size()));
             } while (askedParties.contains(party) && askedParties.size() < allParties.size());
             askedParties.add(party);
+
+            int progress = (int) ((askedParties.size() * 100.0) / allParties.size());
+            progressBar.setProgress(progress);
+            progressTextView.setText(progress + "%");
         }
 
         questionTextView.setText(party);
@@ -142,9 +165,17 @@ public class MainActivity extends AppCompatActivity {
             timer.cancel();
         }
 
-        timerTextView.setText("Час закінчився!");
+        // Відновлюємо текст на таймері і показуємо його
+        if (allowRepeats) {
+            timerTextView.setText("Час закінчився!");
+        } else {
+            timerTextView.setVisibility(View.GONE); // Сховати таймер в режимі "Без повторень"
+        }
+
         scoreTextView.setText("Вірно: " + scoreCorrect + " Невірно: " + scoreIncorrect);
+        progressBar.setVisibility(View.GONE);
     }
 }
+
 
 
